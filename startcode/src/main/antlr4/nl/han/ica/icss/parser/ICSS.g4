@@ -45,5 +45,10 @@ ASSIGNMENT_OPERATOR: ':=';
 
 
 //--- PARSER: ---
-stylesheet: EOF;
-
+stylesheet: astnode*;
+astnode: stylerule | declaration;
+stylerule: selector OPEN_BRACE astnode* CLOSE_BRACE;
+selector: CLASS_IDENT | ID_IDENT | LOWER_IDENT; // | CAPITAL_IDENT;
+declaration: LOWER_IDENT COLON expression SEMICOLON;
+expression: literal;
+literal: COLOR | PIXELSIZE | PERCENTAGE | SCALAR | TRUE | FALSE;
