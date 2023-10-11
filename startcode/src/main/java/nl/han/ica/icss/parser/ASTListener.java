@@ -31,5 +31,12 @@ public class ASTListener extends ICSSBaseListener {
     public AST getAST() {
         return ast;
     }
+
+	@Override
+	public void enterStylesheet(ICSSParser.StylesheetContext ctx) {
+
+
+
+	}
     
 }
