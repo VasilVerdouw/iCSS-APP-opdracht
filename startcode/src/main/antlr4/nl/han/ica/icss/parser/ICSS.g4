@@ -46,9 +46,12 @@ ASSIGNMENT_OPERATOR: ':=';
 
 //--- PARSER: ---
 stylesheet: astnode*;
-astnode: stylerule | declaration;
-stylerule: selector OPEN_BRACE astnode* CLOSE_BRACE;
-selector: CLASS_IDENT | ID_IDENT | LOWER_IDENT; // | CAPITAL_IDENT;
-declaration: LOWER_IDENT COLON expression SEMICOLON;
-expression: literal;
+astnode: stylerule | declaration | variable_assignment; // Ast node = alles. 
+stylerule: selector OPEN_BRACE astnode* CLOSE_BRACE; // Stylerule is bijvoorbeeld h2 { color: #000000; }
+selector: CLASS_IDENT | ID_IDENT | LOWER_IDENT; // | CAPITAL_IDENT; // Selector is bijvoorbeeld h2
+declaration: LOWER_IDENT COLON expression SEMICOLON; // Declaration is bijvoorbeeld color: #000000;
+expression: literal; 
 literal: COLOR | PIXELSIZE | PERCENTAGE | SCALAR | TRUE | FALSE;
+
+// Variable assignment is bijvoorbeeld UseLinkColor := FALSE;
+variable_assignment: CAPITAL_IDENT ASSIGNMENT_OPERATOR literal SEMICOLON;
