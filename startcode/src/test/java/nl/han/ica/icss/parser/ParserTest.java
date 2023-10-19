@@ -15,24 +15,27 @@ class ParserTest {
 
 	AST parseTestFile(String resource) throws IOException {
 
-		//Open test file to parse
+		// Open test file to parse
 		ClassLoader classLoader = this.getClass().getClassLoader();
 
-    	InputStream inputStream = classLoader.getResourceAsStream(resource);
-        CharStream charStream = CharStreams.fromStream(inputStream);
-        ICSSLexer lexer = new ICSSLexer(charStream);
+		InputStream inputStream = classLoader.getResourceAsStream(resource);
+		CharStream charStream = CharStreams.fromStream(inputStream);
+		ICSSLexer lexer = new ICSSLexer(charStream);
 
-	    CommonTokenStream tokens = new CommonTokenStream(lexer);
+		CommonTokenStream tokens = new CommonTokenStream(lexer);
 
-        ICSSParser parser = new ICSSParser(tokens);
+		ICSSParser parser = new ICSSParser(tokens);
 		parser.setErrorHandler(new BailErrorStrategy());
 
-		//Setup collection of the parse error messages
+		// Setup collection of the parse error messages
 		BaseErrorListener errorListener = new BaseErrorListener() {
 			private String message;
-			public void syntaxError(Recognizer<?,?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
+
+			public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line,
+					int charPositionInLine, String msg, RecognitionException e) {
 				message = msg;
 			}
+
 			public String toString() {
 				return message;
 			}
@@ -40,13 +43,13 @@ class ParserTest {
 		parser.removeErrorListeners();
 		parser.addErrorListener(errorListener);
 
-		//Parse & extract AST
- 		ASTListener listener = new ASTListener();
+		// Parse & extract AST
+		ASTListener listener = new ASTListener();
 		try {
 			ParseTree parseTree = parser.stylesheet();
-            ParseTreeWalker walker = new ParseTreeWalker();
-            walker.walk(listener, parseTree);
-		} catch(ParseCancellationException e) {
+			ParseTreeWalker walker = new ParseTreeWalker();
+			walker.walk(listener, parseTree);
+		} catch (ParseCancellationException e) {
 			fail(errorListener.toString());
 		}
 
@@ -54,31 +57,36 @@ class ParserTest {
 	}
 
 	@Test
+	// PA01: Level 0 slaagt
 	void testParseLevel0() throws IOException {
 
 		AST sut = parseTestFile("level0.icss");
 		AST exp = Fixtures.uncheckedLevel0();
-		assertEquals(exp,sut);
+		assertEquals(exp, sut);
 	}
+
 	@Test
+	// PA02: Level 1 slaagt
 	void testParseLevel1() throws IOException {
 
 		AST sut = parseTestFile("level1.icss");
 		AST exp = Fixtures.uncheckedLevel1();
-		assertEquals(exp,sut);
+		assertEquals(exp, sut);
 	}
+
 	@Test
 	void testParseLevel2() throws IOException {
 
 		AST sut = parseTestFile("level2.icss");
 		AST exp = Fixtures.uncheckedLevel2();
-		assertEquals(exp,sut);
+		assertEquals(exp, sut);
 	}
+
 	@Test
 	void testParseLevel3() throws IOException {
 
 		AST sut = parseTestFile("level3.icss");
 		AST exp = Fixtures.uncheckedLevel3();
-		assertEquals(exp,sut);
+		assertEquals(exp, sut);
 	}
 }

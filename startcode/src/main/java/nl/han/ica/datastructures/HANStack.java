@@ -1,5 +1,6 @@
 package nl.han.ica.datastructures;
 
+// PA00: HANStack.java
 public class HANStack<T> implements IHANStack<T> {
     private Node<T> head;
 

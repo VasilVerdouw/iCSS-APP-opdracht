@@ -47,3 +47,5 @@ out/
 *.log
 *.out
 **/target
+
+startcode/gen/

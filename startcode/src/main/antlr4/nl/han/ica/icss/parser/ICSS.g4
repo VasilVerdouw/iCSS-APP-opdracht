@@ -46,19 +46,31 @@ ASSIGNMENT_OPERATOR: ':=';
 
 //--- PARSER: ---
 stylesheet: astnode*;
-astnode: variableAssignment | stylerule | declaration; // Ast node = alles. 
+astnode: variableAssignment | stylerule | declaration | ifClause; // Ast node = alles. 
 stylerule: selector OPEN_BRACE astnode* CLOSE_BRACE; // Stylerule is bijvoorbeeld h2 { color: #000000; }
 
 classSelector: CLASS_IDENT; // Class selector is bijvoorbeeld .link
 idSelector: ID_IDENT; // Id selector is bijvoorbeeld #link
 tagSelector: LOWER_IDENT; // Tag selector is bijvoorbeeld h2
-selector: classSelector | idSelector | tagSelector; // (',' selector)*
+selector: tagSelector | classSelector | idSelector; // (',' selector)*
 
-declaration: LOWER_IDENT COLON expression SEMICOLON; // Declaration is bijvoorbeeld color: #000000;
-expression: literal; 
-literal: COLOR | PIXELSIZE | PERCENTAGE | SCALAR | TRUE | FALSE | variableReference;
+propertyName: LOWER_IDENT;
+declaration: propertyName COLON expression SEMICOLON; // Declaration is bijvoorbeeld color: #000000;
+
+// Because recursion is only allowed within one rule we can't use the official AddOperation, MultiplyOperation, etc. rules.
+expression: literal | expression MUL expression | expression (PLUS | MIN) expression; // PA03: Door (MIN | PLUS) te scheiden van MUL wordt de volgorde juist toegepast
+
+colorLiteral: COLOR;
+pixelLiteral: PIXELSIZE;
+percentageLiteral: PERCENTAGE;
+scalarLiteral: SCALAR;
+boolLiteral: TRUE | FALSE;
+literal: colorLiteral | pixelLiteral | percentageLiteral | scalarLiteral | boolLiteral | variableReference; // Literal is bijvoorbeeld #000000
 
 // Variable assignment is bijvoorbeeld UseLinkColor := FALSE;
-variableName: CAPITAL_IDENT;
-variableAssignment: variableName ASSIGNMENT_OPERATOR literal SEMICOLON;
-variableReference: variableName; // Variable reference is bijvoorbeeld UseLinkColor
+variableAssignment: variableReference ASSIGNMENT_OPERATOR expression SEMICOLON;
+variableReference: CAPITAL_IDENT; // Variable reference is bijvoorbeeld UseLinkColor
+
+// If clause is bijvoorbeeld if [UseLinkCoolor] { color: #000000; }
+ifClause: IF BOX_BRACKET_OPEN (variableReference | boolLiteral) BOX_BRACKET_CLOSE OPEN_BRACE astnode* CLOSE_BRACE elseClause?;
+elseClause: ELSE OPEN_BRACE astnode* CLOSE_BRACE; // PA04: Else clause toegevoegd
