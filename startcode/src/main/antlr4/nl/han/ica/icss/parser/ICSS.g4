@@ -47,6 +47,7 @@ ASSIGNMENT_OPERATOR: ':=';
 //--- PARSER: ---
 stylesheet: astnode*;
 astnode: variableAssignment | stylerule | declaration | ifClause; // Ast node = alles. 
+
 stylerule: selector OPEN_BRACE astnode* CLOSE_BRACE; // Stylerule is bijvoorbeeld h2 { color: #000000; }
 
 classSelector: CLASS_IDENT; // Class selector is bijvoorbeeld .link
