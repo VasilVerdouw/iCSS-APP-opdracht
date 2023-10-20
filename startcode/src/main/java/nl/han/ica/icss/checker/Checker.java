@@ -8,6 +8,8 @@ import nl.han.ica.icss.ast.Stylerule;
 import nl.han.ica.icss.ast.Stylesheet;
 import nl.han.ica.icss.ast.VariableAssignment;
 import nl.han.ica.icss.ast.types.ExpressionType;
+import nl.han.ica.icss.ast.Declaration;
+import nl.han.ica.icss.ast.IfClause;
 
 import java.util.HashMap;
 
@@ -36,16 +38,38 @@ public class Checker {
                 checkVariableAssignment(child);
             } else if (child instanceof Stylerule) {
                 checkStyleRule(child);
+            } else {
+                child.setError("Stylesheet can only contain variable assignments and style rules on root level");
             }
         }
     }
 
     private void checkVariableAssignment(ASTNode node) {
         VariableAssignment variableAssignment = (VariableAssignment) node;
+
+        // Nothing to check??????
     }
 
     private void checkStyleRule(ASTNode node) {
         Stylerule stylerule = (Stylerule) node;
+
+        // Add new scope
+        variableTypes.addFirst(new HashMap<>());
+
+        // Check all children
+        for (ASTNode child : stylerule.getChildren()) {
+            if (child instanceof Declaration) {
+                checkDeclaration(child);
+            } else if (child instanceof IfClause) {
+                checkIfClause(child);
+            } else if (child instanceof VariableAssignment) {
+                checkVariableAssignment(child);
+            } else if (child instanceof Stylerule) {
+                child.setError("Nesting of style rules is not supported");
+            } else {
+                child.setError("Style rule can only contain declarations and if clauses");
+            }
+        }
     }
 
 }
