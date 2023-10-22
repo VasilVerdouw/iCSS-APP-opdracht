@@ -105,4 +105,9 @@ public class HANLinkedList<T> implements IHANLinkedList<T> {
         }
         return size;
     }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new LinkedListIterator<T>(first);
+    }
 }
