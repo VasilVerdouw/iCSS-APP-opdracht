@@ -53,7 +53,7 @@ stylerule: selector OPEN_BRACE astnode* CLOSE_BRACE; // Stylerule is bijvoorbeel
 classSelector: CLASS_IDENT; // Class selector is bijvoorbeeld .link
 idSelector: ID_IDENT; // Id selector is bijvoorbeeld #link
 tagSelector: LOWER_IDENT; // Tag selector is bijvoorbeeld h2
-selector: tagSelector | classSelector | idSelector; // (',' selector)*
+selector: (tagSelector | classSelector | idSelector) (',' selector)*; // Selector is bijvoorbeeld h2, .link, #link 
 
 propertyName: LOWER_IDENT;
 declaration: propertyName COLON expression SEMICOLON; // Declaration is bijvoorbeeld color: #000000;
