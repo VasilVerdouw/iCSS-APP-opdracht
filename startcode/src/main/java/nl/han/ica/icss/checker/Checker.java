@@ -243,6 +243,9 @@ public class Checker {
             if (child instanceof ColorLiteral) {
                 child.setError("Color literals are not allowed in operations");
                 return ExpressionType.UNDEFINED;
+            } else if (child instanceof BoolLiteral) {
+                child.setError("Boolean literals are not allowed in operations");
+                return ExpressionType.UNDEFINED;
             }
         }
 
