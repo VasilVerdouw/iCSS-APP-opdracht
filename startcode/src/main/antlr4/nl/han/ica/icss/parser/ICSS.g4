@@ -59,14 +59,14 @@ propertyName: LOWER_IDENT;
 declaration: propertyName COLON expression SEMICOLON; // Declaration is bijvoorbeeld color: #000000;
 
 // Because recursion is only allowed within one rule we can't use the official AddOperation, MultiplyOperation, etc. rules.
-expression: literal | expression MUL expression | expression (PLUS | MIN) expression; // PA03: Door (MIN | PLUS) te scheiden van MUL wordt de volgorde juist toegepast
+expression: literal | variableReference | expression MUL expression | expression (PLUS | MIN) expression; // PA03: Door (MIN | PLUS) te scheiden van MUL wordt de volgorde juist toegepast
 
 colorLiteral: COLOR;
 pixelLiteral: PIXELSIZE;
 percentageLiteral: PERCENTAGE;
 scalarLiteral: SCALAR;
 boolLiteral: TRUE | FALSE;
-literal: colorLiteral | pixelLiteral | percentageLiteral | scalarLiteral | boolLiteral | variableReference; // Literal is bijvoorbeeld #000000
+literal: colorLiteral | pixelLiteral | percentageLiteral | scalarLiteral | boolLiteral; // Literal is bijvoorbeeld #000000
 
 // Variable assignment is bijvoorbeeld UseLinkColor := FALSE;
 variableAssignment: variableReference ASSIGNMENT_OPERATOR expression SEMICOLON;
