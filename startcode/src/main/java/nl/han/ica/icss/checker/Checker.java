@@ -77,15 +77,13 @@ public class Checker {
         variableTypes.addFirst(new HashMap<>());
 
         // Check all children
-        for (ASTNode child : stylerule.getChildren()) {
+        for (ASTNode child : stylerule.body) {
             if (child instanceof Declaration) {
                 checkDeclaration(child);
             } else if (child instanceof IfClause) {
                 checkIfClause(child);
             } else if (child instanceof VariableAssignment) {
                 checkVariableAssignment(child);
-            } else if (child instanceof Selector) {
-                // Nothing to check ??
             } else if (child instanceof Stylerule) {
                 child.setError("Nesting of style rules is not supported");
             } else {
