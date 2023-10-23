@@ -155,7 +155,7 @@ public class Checker {
     private ExpressionType checkVariableReferenceType(ASTNode node) {
         VariableReference variableReference = (VariableReference) node;
 
-        // Return type if found in scope.
+        // Return type if found in scope
         for (HashMap<String, ExpressionType> scope : variableTypes) {
             if (scope.containsKey(variableReference.name)) {
                 return scope.get(variableReference.name);
