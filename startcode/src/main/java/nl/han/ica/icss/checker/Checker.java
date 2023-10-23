@@ -2,7 +2,6 @@ package nl.han.ica.icss.checker;
 
 import nl.han.ica.datastructures.HANLinkedList;
 import nl.han.ica.datastructures.IHANLinkedList;
-import nl.han.ica.datastructures.LinkedListIterator;
 import nl.han.ica.icss.ast.AST;
 import nl.han.ica.icss.ast.ASTNode;
 import nl.han.ica.icss.ast.Stylerule;
@@ -17,14 +16,11 @@ import nl.han.ica.icss.ast.literals.ScalarLiteral;
 import nl.han.ica.icss.ast.operations.AddOperation;
 import nl.han.ica.icss.ast.operations.MultiplyOperation;
 import nl.han.ica.icss.ast.operations.SubtractOperation;
-import nl.han.ica.icss.ast.selectors.TagSelector;
 import nl.han.ica.icss.ast.types.ExpressionType;
 import nl.han.ica.icss.ast.Declaration;
 import nl.han.ica.icss.ast.ElseClause;
 import nl.han.ica.icss.ast.Expression;
 import nl.han.ica.icss.ast.IfClause;
-import nl.han.ica.icss.ast.Selector;
-import nl.han.ica.icss.ast.Literal;
 import nl.han.ica.icss.ast.Operation;
 
 import java.util.HashMap;

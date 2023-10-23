@@ -10,7 +10,7 @@ import nl.han.ica.icss.ast.literals.PercentageLiteral;
 import nl.han.ica.icss.ast.literals.PixelLiteral;
 
 public class Generator {
-
+	// GE01
 	public String generate(AST ast) {
 		return generateStylesheet(ast.root);
 	}
@@ -50,7 +50,8 @@ public class Generator {
 		Declaration declaration = (Declaration) node;
 		String output = "";
 
-		output += "\t" + declaration.property.name + ": ";
+		// GE02
+		output += "  " + declaration.property.name + ": ";
 
 		if (declaration.expression instanceof ColorLiteral) {
 			output += ((ColorLiteral) declaration.expression).value + ";\n";
