@@ -45,6 +45,7 @@ ASSIGNMENT_OPERATOR: ':=';
 
 
 //--- PARSER: ---
+// PA01
 stylesheet: astnode*;
 astnode: variableAssignment | stylerule | declaration | ifClause; // Ast node = alles. 
 
@@ -68,10 +69,12 @@ scalarLiteral: SCALAR;
 boolLiteral: TRUE | FALSE;
 literal: colorLiteral | pixelLiteral | percentageLiteral | scalarLiteral | boolLiteral; // Literal is bijvoorbeeld #000000
 
+// PA02
 // Variable assignment is bijvoorbeeld UseLinkColor := FALSE;
 variableAssignment: variableReference ASSIGNMENT_OPERATOR expression SEMICOLON;
 variableReference: CAPITAL_IDENT; // Variable reference is bijvoorbeeld UseLinkColor
 
+// PA04
 // If clause is bijvoorbeeld if [UseLinkCoolor] { color: #000000; }
 ifClause: IF BOX_BRACKET_OPEN (variableReference | boolLiteral) BOX_BRACKET_CLOSE OPEN_BRACE astnode* CLOSE_BRACE elseClause?;
 elseClause: ELSE OPEN_BRACE astnode* CLOSE_BRACE; // PA04: Else clause toegevoegd

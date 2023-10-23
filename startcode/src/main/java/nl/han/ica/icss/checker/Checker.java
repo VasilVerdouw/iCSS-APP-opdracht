@@ -2,6 +2,7 @@ package nl.han.ica.icss.checker;
 
 import nl.han.ica.datastructures.HANLinkedList;
 import nl.han.ica.datastructures.IHANLinkedList;
+import nl.han.ica.icss.ast.AST;
 import nl.han.ica.icss.ast.ASTNode;
 import nl.han.ica.icss.ast.Stylerule;
 import nl.han.ica.icss.ast.Stylesheet;
@@ -28,12 +29,9 @@ public class Checker {
 
     private IHANLinkedList<HashMap<String, ExpressionType>> variableTypes;
 
-    public Checker() {
-        variableTypes = new HANLinkedList<>();
-    }
-
     public void check(AST ast) {
         // Root should always be stylesheet
+        variableTypes = new HANLinkedList<>();
         checkStylesheet(ast.root);
     }
 

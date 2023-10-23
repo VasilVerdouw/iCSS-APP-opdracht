@@ -27,6 +27,7 @@ release.properties
 *.iws
 out/
 .idea_modules/
+startcode/gen/
 
 ##########################
 ## VS Code
@@ -48,4 +49,4 @@ out/
 *.out
 **/target
 
-startcode/gen/
+

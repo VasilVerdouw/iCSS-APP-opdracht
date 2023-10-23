@@ -14,6 +14,7 @@ import nl.han.ica.icss.ast.selectors.TagSelector;
 /**
  * This class extracts the ICSS Abstract Syntax Tree from the Antlr Parse tree.
  */
+// PA01
 public class ASTListener extends ICSSBaseListener {
 
 	// Accumulator attributes:
@@ -25,6 +26,7 @@ public class ASTListener extends ICSSBaseListener {
 
 	public ASTListener() {
 		ast = new AST();
+		// PA00
 		currentContainer = new HANStack<>();
 	}
 
@@ -174,6 +176,7 @@ public class ASTListener extends ICSSBaseListener {
 		currentContainer.peek().addChild(boolLiteral);
 	}
 
+	// PA02
 	@Override
 	public void enterVariableReference(ICSSParser.VariableReferenceContext ctx) {
 		VariableReference variableReference = new VariableReference(ctx.getText());
@@ -202,6 +205,7 @@ public class ASTListener extends ICSSBaseListener {
 		if (ctx.getChildCount() != 3)
 			return; // Expression is not an operation
 
+		// PA03
 		String operation = ctx.getChild(1).getText(); // 1 should always be middle child (the operator)
 		if (operation.equals("+")) {
 			currentContainer.push(new AddOperation());
@@ -221,6 +225,7 @@ public class ASTListener extends ICSSBaseListener {
 		currentContainer.peek().addChild(operation);
 	}
 
+	// PA04
 	@Override
 	public void enterIfClause(ICSSParser.IfClauseContext ctx) {
 		currentContainer.push(new IfClause());
