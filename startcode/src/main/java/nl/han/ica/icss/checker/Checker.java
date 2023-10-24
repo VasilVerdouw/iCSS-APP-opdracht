@@ -175,14 +175,12 @@ public class Checker {
         variableTypes.addFirst(new HashMap<>());
 
         // Check all children
-        for (ASTNode child : ifClause.getChildren()) {
+        for (ASTNode child : ifClause.body) {
             // CH05: If clause can only have boolean variable references or boolean literals
             if (child instanceof VariableReference) {
                 if (checkVariableReferenceType((Expression) child) != ExpressionType.BOOL) {
                     child.setError("If clause can only contain boolean expressions");
                 }
-            } else if (child instanceof BoolLiteral) {
-                // Nothing to check
             } else if (child instanceof VariableAssignment) {
                 checkVariableAssignment(child);
             } else if (child instanceof Declaration) {
