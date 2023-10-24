@@ -10,7 +10,7 @@ import nl.han.ica.icss.ast.literals.PercentageLiteral;
 import nl.han.ica.icss.ast.literals.PixelLiteral;
 
 public class Generator {
-	// GE01
+	// GE01: Generate CSS from AST
 	public String generate(AST ast) {
 		return generateStylesheet(ast.root);
 	}
@@ -50,7 +50,7 @@ public class Generator {
 		Declaration declaration = (Declaration) node;
 		String output = "";
 
-		// GE02
+		// GE02: Add 2 spaces per scope level.
 		output += "  " + declaration.property.name + ": ";
 
 		if (declaration.expression instanceof ColorLiteral) {

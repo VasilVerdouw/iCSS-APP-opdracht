@@ -96,6 +96,7 @@ public class Evaluator implements Transform {
         declaration.expression = evaluateExpression(declaration.expression);
     }
 
+    // TR02: Evaluate if clauses
     private ArrayList<ASTNode> evaluateIfClause(ASTNode node) {
         IfClause ifClause = (IfClause) node;
 
@@ -122,6 +123,7 @@ public class Evaluator implements Transform {
         variableValues.getFirst().put(variableAssignment.name.name, evaluateExpression(variableAssignment.expression));
     }
 
+    // TR01: Change expressions to literals
     private Literal evaluateExpression(ASTNode node) {
         if (node instanceof VariableReference) {
             return evaluateVariableReference(node);
