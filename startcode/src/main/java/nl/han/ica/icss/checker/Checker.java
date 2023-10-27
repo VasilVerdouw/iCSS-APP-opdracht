@@ -174,14 +174,18 @@ public class Checker {
         // Add new scope
         variableTypes.addFirst(new HashMap<>());
 
+        // CH05: If clause can only have boolean variable references or boolean literals
+        if (ifClause.conditionalExpression instanceof VariableReference) {
+            if (checkVariableReferenceType(ifClause.conditionalExpression) != ExpressionType.BOOL) {
+                ifClause.conditionalExpression.setError("If clause can only contain boolean expressions");
+            }
+        } else if (!(ifClause.conditionalExpression instanceof BoolLiteral)) {
+            ifClause.conditionalExpression.setError("If clause can only contain boolean expressions");
+        }
+
         // Check all children
         for (ASTNode child : ifClause.body) {
-            // CH05: If clause can only have boolean variable references or boolean literals
-            if (child instanceof VariableReference) {
-                if (checkVariableReferenceType((Expression) child) != ExpressionType.BOOL) {
-                    child.setError("If clause can only contain boolean expressions");
-                }
-            } else if (child instanceof VariableAssignment) {
+            if (child instanceof VariableAssignment) {
                 checkVariableAssignment(child);
             } else if (child instanceof Declaration) {
                 checkDeclaration(child);
